@@ -1,5 +1,33 @@
 #include "modele.h"
 
+void createLP(char* nomFichier){
+	FILE* fichier = NULL;
+	fichier = fopen(nomFichier, "r");
+
+	if (!fichier) {
+		printf("Impossible d'ouvrir le fichier %s, abandon...\n", nomFichier);
+		return NULL;
+	}
+	int M, N, i;
+	fscanf(fichier, "%d %d\n", &(M), &(N));
+
+	int** tab = (int**)malloc(N * sizeof(int*));
+
+	for (i = 0; i < N; i++)
+	{
+		tab[i] = (int**)malloc(2 * sizeof(int*));
+	}
+
+	FILE* fichierLP = NULL;
+	char* nomFichierLP = "inst.lp";
+	fichier = fopen(nomFichierLP, "r");
+
+	fclose(fichier);
+	fclose(fichierLP);
+	return NULL;
+}
+
+/*
 Modele* chargerModele(char* nomFichier) {
 	FILE* fichier = NULL;
 	fichier = fopen(nomFichier, "r");
@@ -46,3 +74,5 @@ void detruireModele(Modele* modele) //nettoie la mémoire
 {
 	return;
 }
+*/
+

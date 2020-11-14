@@ -1,6 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
 #ifndef MODELE_H
 #define MODELE_H
 
+/*
 typedef struct {
 	char type; //0 si <=, 1 si >=
 	float* coeff; //coefficients des variables dans la contrainte, dimension N
@@ -18,6 +23,9 @@ typedef struct {
 Modele* chargerModele(char* nomFichier); //charge le modèle depuis le fichier spécifié, retourne NULL si impossible
 void afficherModele(Modele* modele); //affiche le modèle tel que vu en cours
 void detruireModele(Modele* modele); //nettoie la mémoire
+*/
+
+void createLP(char* path);
 
 
 #endif
