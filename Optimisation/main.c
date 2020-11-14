@@ -2,7 +2,8 @@
 
 int main(int argc, char* argv[])
 {
-	char* path = "inst41.txt";
+	char* path = "D:\\VS\\mohaspecter\\Optimisation\\Optimisation\\inst41.txt";
 	createLP(path);
+	system("pause");
 	return 0;
 }

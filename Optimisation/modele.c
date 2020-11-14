@@ -1,6 +1,8 @@
 #include "modele.h"
 
 void createLP(char* nomFichier){
+	int M, N, i;
+
 	FILE* fichier = NULL;
 	fichier = fopen(nomFichier, "r");
 
@@ -8,8 +10,11 @@ void createLP(char* nomFichier){
 		printf("Impossible d'ouvrir le fichier %s, abandon...\n", nomFichier);
 		return NULL;
 	}
-	int M, N, i;
+	else
+		printf("fichier ouvert \n");
+
 	fscanf(fichier, "%d %d\n", &(M), &(N));
+	printf("M=%d \t N=%d \n", &(M), &(N));
 
 	int** tab = (int**)malloc(N * sizeof(int*));
 
@@ -22,9 +27,10 @@ void createLP(char* nomFichier){
 	char* nomFichierLP = "inst.lp";
 	fichier = fopen(nomFichierLP, "r");
 
+	system("pause");
+
 	fclose(fichier);
 	fclose(fichierLP);
-	return NULL;
 }
 
 /*
