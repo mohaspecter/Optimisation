@@ -1,7 +1,7 @@
 #include "modele.h"
 
 void createLP(char* nomFichier){
-	int M, N, i, j, minmax, cpt, cpt2, put;
+	int M, N, i, j, minmax, cpt, cpt2, cpt3, put;
 
 	FILE* fichier = NULL;
 	fichier = fopen(nomFichier, "r");
@@ -54,8 +54,10 @@ void createLP(char* nomFichier){
 	}
 
 	//cout
-	int a, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12;
-	int b, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12;
+	int a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12;
+	int b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12;
+	int c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
+
 
 	//si la ligne est complète on rempli le tableau avec les données de la ligne
 	while (cpt > 12)
@@ -280,34 +282,197 @@ void createLP(char* nomFichier){
 		}
 	}
 	fputs("z: ", fichierLP);
-	printf("z copié\n");
+	printf("z copie\n");
+	//----------------
 	for (i = 0; i < N; i++)
 	{
 		put = (tab[i][0]);
 		if (i == (N - 1))
 		{
-			fprintf(fichierLP,"1*X%d\n", put);
+			fprintf(fichierLP,"1 X%d\n", put);
 		}
 
 		else
 		{
-			fprintf(fichierLP,"1*X%d + ", put);
+			fprintf(fichierLP,"1 X%d + ", put);
 		}
 	}
 
 	fputs("\nSubject To\n", fichierLP);
 	cpt2 = M;
-	while (cpt2 = !0)
+	while (cpt2 > 0)
 	{
+		fscanf(fichier, "%d", &cpt3);
+		while (cpt3 > 0)
+		{
+			fprintf(fichierLP, "poids: ");
 
+			if (cpt3 >= 12)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11, &a12);
+				b1 = tab[a1][1];
+				b2 = tab[a2][1];
+				b3 = tab[a3][1];
+				b4 = tab[a4][1];
+				b5 = tab[a5][1];
+				b6 = tab[a6][1];
+				b7 = tab[a7][1];
+				b8 = tab[a8][1];
+				b9 = tab[a9][1];
+				b10 = tab[a10][1];
+				b11 = tab[a11][1];
+				b12 = tab[a12][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12);
+				cpt3 -= 12;
+			}
+			if (cpt3 == 11)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				c7 = tab[a7][1];
+				c8 = tab[a8][1];
+				c9 = tab[a9][1];
+				c10 = tab[a10][1];
+				c11 = tab[a11][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11);
+				cpt3 -= 11;
+			}
+
+			if (cpt3 == 10)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				c7 = tab[a7][1];
+				c8 = tab[a8][1];
+				c9 = tab[a9][1];
+				c10 = tab[a10][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
+				cpt3 -= 10;
+			}
+
+			if (cpt3 == 9)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				c7 = tab[a7][1];
+				c8 = tab[a8][1];
+				c9 = tab[a9][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9);
+				cpt3 -= 9;
+			}
+
+			if (cpt3 == 8)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				c7 = tab[a7][1];
+				c8 = tab[a8][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8);
+				cpt3 -= 8;
+			}
+
+			if (cpt3 == 7)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				c7 = tab[a7][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7);
+				cpt3 -= 7;
+			}
+			if (cpt3 == 6)
+			{
+				fscanf(fichier, "%d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				c6 = tab[a6][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6);
+				cpt3 -= 6;
+			}
+			if (cpt3 == 5)
+			{
+				fscanf(fichier, "%d %d %d %d %d", &a1, &a2, &a3, &a4, &a5);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				c5 = tab[a5][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5);
+				cpt3 -= 5;
+			}
+
+			if (cpt3 == 4)
+			{
+				fscanf(fichier, "%d %d %d %d", &a1, &a2, &a3, &a4);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				c4 = tab[a4][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4);
+				cpt3 -= 4;
+			}
+			if (cpt3 == 3)
+			{
+				fscanf(fichier, "%d %d %d", &a1, &a2, &a3);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				c3 = tab[a3][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d", c1, c2, c3);
+				cpt3 -= 3;
+			}
+			if (cpt3 == 2)
+			{
+				fscanf(fichier, "%d %d", &a1, &a2);
+				c1 = tab[a1][1];
+				c2 = tab[a2][1];
+				fprintf(fichierLP, "+ 1 X%d + 1 X%d", c1, c2);
+				cpt3 -= 2;
+			}
+			if (cpt3 == 1)
+			{
+				fscanf(fichier, "%d", &a1);
+				c1 = tab[a1][1];
+				fprintf(fichierLP, "+ 1 X%d", c1);
+				cpt3 -= 1;
+			}
+		}
+		fprintf(fichierLP, "\n");
 		cpt2--;
 	}
 
-	fputs("\Binaries\n", fichierLP);
+	fputs("\nBinaries\n", fichierLP);
+
 	for (i = 0; i < N; i++)
 	{
 		put = (tab[i][0]);
-		fprintf(fichierLP, "X%d\n ", put);
+		fprintf(fichierLP, "X%d\n", put);
 	}
 	printf("subject to copié\n");
 
