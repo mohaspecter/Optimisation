@@ -1,7 +1,7 @@
 #include "modele.h"
 
 void createLP(char* nomFichier){
-	int M, N, i, j, minmax, cpt, put;
+	int M, N, i, j, minmax, cpt, cpt2, put;
 
 	FILE* fichier = NULL;
 	fichier = fopen(nomFichier, "r");
@@ -280,7 +280,7 @@ void createLP(char* nomFichier){
 		}
 	}
 	fputs("z: ", fichierLP);
-
+	printf("z copié\n");
 	for (i = 0; i < N; i++)
 	{
 		put = (tab[i][0]);
@@ -296,8 +296,20 @@ void createLP(char* nomFichier){
 	}
 
 	fputs("\nSubject To\n", fichierLP);
+	cpt2 = M;
+	while (cpt2 = !0)
+	{
+
+		cpt2--;
+	}
 
 	fputs("\Binaries\n", fichierLP);
+	for (i = 0; i < N; i++)
+	{
+		put = (tab[i][0]);
+		fprintf(fichierLP, "X%d\n ", put);
+	}
+	printf("subject to copié\n");
 
 	/*printf("--------------test tableau------------------------\n");
 	for (i = 0; i < N; i++)
