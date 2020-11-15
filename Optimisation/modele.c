@@ -1,7 +1,7 @@
 #include "modele.h"
 
 void createLP(char* nomFichier){
-	int M, N, i;
+	int M, N, i, minmax, cpt;
 
 	FILE* fichier = NULL;
 	fichier = fopen(nomFichier, "r");
@@ -34,7 +34,32 @@ void createLP(char* nomFichier){
 	else
 		printf("fichier LP ouvert en ecriture \n");
 
+	//si 0 on minimise si 1 maximum
+	minmax = 0;
+	if (minmax == 0)
+	{
+		fputs("Minimize\n", fichierLP);
+	}
 
+	if (minmax == 1)
+	{
+		fputs("Maximize\n", fichierLP);
+	} 
+
+	cpt = N;
+
+	//on rempli le tableau avec une valeur et son cout 
+	//valeurs
+	for (i = 0; i < N; i++)
+	{
+		tab[i][0] = i;
+	}
+
+	//cout
+	while (cpt != 0)
+	{
+		cpt--;
+	}
 
 	fclose(fichier);
 	fclose(fichierLP);
@@ -74,8 +99,6 @@ Modele* chargerModele(char* nomFichier) {
 	{
 		
 	}
-
-
 }
 
 void afficherModele(Modele* modele)		//affiche le modèle tel que vu en cours
