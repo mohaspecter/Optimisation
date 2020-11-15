@@ -11,10 +11,10 @@ void createLP(char* nomFichier){
 		return NULL;
 	}
 	else
-		printf("fichier ouvert \n");
+		printf("fichier instance ouvert en lecture \n");
 
 	fscanf(fichier, "%d %d\n", &(M), &(N));
-	printf("M=%d \t N=%d \n", &(M), &(N));
+	printf("M=%d \t N=%d \n", (M), (N));
 
 	int** tab = (int**)malloc(N * sizeof(int*));
 
@@ -24,10 +24,17 @@ void createLP(char* nomFichier){
 	}
 
 	FILE* fichierLP = NULL;
-	char* nomFichierLP = "inst.lp";
-	fichier = fopen(nomFichierLP, "r");
+	char* nomFichierLP = "D:\\VS\\mohaspecter\\Optimisation\\Optimisation\\inst.lp";
+	fichierLP = fopen(nomFichierLP, "w+");
 
-	system("pause");
+	if (!fichierLP) {
+		printf("Impossible d'ouvrir le fichier %s, abandon...\n", nomFichierLP);
+		return NULL;
+	}
+	else
+		printf("fichier LP ouvert en ecriture \n");
+
+
 
 	fclose(fichier);
 	fclose(fichierLP);
