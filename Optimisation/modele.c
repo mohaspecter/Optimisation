@@ -255,12 +255,14 @@ void createLP(char* nomFichier){
 			tab[b4][1] = a4;
 			cpt -= 4;
 		}
+
 		if (cpt == 3)
 		{
 			fscanf(fichier, "%d %d %d", &a1, &a2, &a3);
 			b1 = N - cpt;
 			b2 = N - cpt + 1;
 			b3 = N - cpt + 2;
+
 			tab[b1][1] = a1;
 			tab[b2][1] = a2;
 			tab[b3][1] = a3;
@@ -465,7 +467,7 @@ void createLP(char* nomFichier){
 				cpt3 -= 1;
 			}
 		}
-		fprintf(fichierLP, "\n");
+		fprintf(fichierLP, ">= 1\n");
 		cpt2--;
 	}
 
