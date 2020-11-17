@@ -286,6 +286,12 @@ void createLP(char* nomFichier){
 		}
 	}
 	fputs("z: ", fichierLP);
+	printf("--------------test tableau------------------------\n");
+	for (i = 0; i < N; i++)
+		printf("%d\t%d\n", (tab[i][0]), (tab[i][1])); 
+
+	system("pause");
+
 	printf("z copie\n");
 	//----------------
 	for (i = 0; i < N; i++)
@@ -479,10 +485,6 @@ void createLP(char* nomFichier){
 		fprintf(fichierLP, "X%d\n", put);
 	}
 	printf("subject to copié\n");
-
-	/*printf("--------------test tableau------------------------\n");
-	for (i = 0; i < N; i++)
-		printf("%d\t%d\n", (tab[i][0]), (tab[i][1]));*/
 
 	fclose(fichier);
 	fclose(fichierLP);
