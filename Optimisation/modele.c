@@ -2,14 +2,14 @@
 
 #include "modele.h"
 
-void createLP(char* nomFichier){
-	int M, N, i, j, minmax, cpt, cpt2, cpt3, put;
+void createLP(char* nomFichier_inst, char* nomFichier_lp) {
+	int M, N;
 
 	FILE* fichier = NULL;
-	fichier = fopen(nomFichier, "r");
+	fichier = fopen(nomFichier_inst, "r");
 
 	if (!fichier) {
-		printf("Impossible d'ouvrir le fichier %s, abandon...\n", nomFichier);
+		printf("Impossible d'ouvrir le fichier %s, abandon...\n", fichier);
 		return NULL;
 	}
 	else
@@ -18,15 +18,9 @@ void createLP(char* nomFichier){
 	fscanf(fichier, "%d %d\n", &(M), &(N));
 	printf("M=%d \t N=%d \n", M, N);
 
-	int** tab = (int**)malloc(N * sizeof(int*));
-
-	for (i = 0; i < N; i++)
-	{
-		tab[i] = (int**)malloc(2 * sizeof(int*));
-	}
 
 	FILE* fichierLP = NULL;
-	char* nomFichierLP = "D:\\VS\\mohaspecter\\Optimisation\\Optimisation\\inst.lp";
+	char* nomFichierLP = nomFichier_lp;
 	fichierLP = fopen(nomFichierLP, "w+");
 
 	if (!fichierLP) {
@@ -37,7 +31,7 @@ void createLP(char* nomFichier){
 		printf("fichier LP ouvert en ecriture \n");
 
 	//si 0 on minimise si 1 maximum
-	minmax = 0;
+	int minmax = 0;
 	if (minmax == 0)
 	{
 		fputs("Minimize\n", fichierLP);
@@ -45,495 +39,59 @@ void createLP(char* nomFichier){
 	if (minmax == 1)
 	{
 		fputs("Maximize\n", fichierLP);
-	} 
-	cpt = N;
-
-	//on rempli le tableau avec une valeur et son cout 
-	//valeurs
-	for (i = 0; i < N; i++)
-	{
-		tab[i][0] = i+1;
 	}
 
-	//cout
-	int a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12;
-	int b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12;
-	int c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;
-
-
-	//si la ligne est complète on rempli le tableau avec les données de la ligne
-	while (cpt > 12)
-	{
-		fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11, &a12);
-		b1 = N - cpt;
-		b2 = N - cpt + 1;
-		b3 = N - cpt + 2;
-		b4 = N - cpt + 3;
-		b5 = N - cpt + 4;
-		b6 = N - cpt + 5;
-		b7 = N - cpt + 6;
-		b8 = N - cpt + 7;
-		b9 = N - cpt + 8;
-		b10 = N - cpt + 9;
-		b11 = N - cpt + 10;
-		b12 = N - cpt + 11;
-
-		tab[b1][1] = a1;
-		tab[b2][1] = a2;
-		tab[b3][1] = a3;
-		tab[b4][1] = a4;
-		tab[b5][1] = a5;
-		tab[b6][1] = a6;
-		tab[b7][1] = a7;
-		tab[b8][1] = a8;
-		tab[b9][1] = a9;
-		tab[b10][1] = a10;
-		tab[b11][1] = a11;
-		tab[b12][1] = a12;
-
-		cpt -= 12;
-	}
-	if (cpt > 0)
-	{
-		if (cpt == 11)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			b7 = N - cpt + 6;
-			b8 = N - cpt + 7;
-			b9 = N - cpt + 8;
-			b10 = N - cpt + 9;
-			b11 = N - cpt + 10;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			tab[b7][1] = a7;
-			tab[b8][1] = a8;
-			tab[b9][1] = a9;
-			tab[b10][1] = a10;
-			tab[b11][1] = a11;
-			cpt -= 11;
-		}
-		if (cpt == 10)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			b7 = N - cpt + 6;
-			b8 = N - cpt + 7;
-			b9 = N - cpt + 8;
-			b10 = N - cpt + 9;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			tab[b7][1] = a7;
-			tab[b8][1] = a8;
-			tab[b9][1] = a9;
-			tab[b10][1] = a10;
-			cpt -= 10;
-		}
-		if (cpt == 9)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			b7 = N - cpt + 6;
-			b8 = N - cpt + 7;
-			b9 = N - cpt + 8;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			tab[b7][1] = a7;
-			tab[b8][1] = a8;
-			tab[b9][1] = a9;
-			cpt -= 9;
-		}
-		if (cpt == 8)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			b7 = N - cpt + 6;
-			b8 = N - cpt + 7;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			tab[b7][1] = a7;
-			tab[b8][1] = a8;
-			cpt -= 8;
-		}
-		if (cpt == 7)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			b7 = N - cpt + 6;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			tab[b7][1] = a7;
-			cpt -= 7;
-		}
-		if (cpt == 6)
-		{
-			fscanf(fichier, "%d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			b6 = N - cpt + 5;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			tab[b6][1] = a6;
-			cpt -= 6;
-		}
-		if (cpt == 5)
-		{
-			fscanf(fichier, "%d %d %d %d %d", &a1, &a2, &a3, &a4, &a5);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			b5 = N - cpt + 4;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			tab[b5][1] = a5;
-			cpt -= 5;
-		}
-		if (cpt == 4)
-		{
-			fscanf(fichier, "%d %d %d %d", &a1, &a2, &a3, &a4);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-			b4 = N - cpt + 3;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			tab[b4][1] = a4;
-			cpt -= 4;
-		}
-
-		if (cpt == 3)
-		{
-			fscanf(fichier, "%d %d %d", &a1, &a2, &a3);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			b3 = N - cpt + 2;
-
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			tab[b3][1] = a3;
-			cpt -= 3;
-		}
-		if (cpt == 2)
-		{
-			fscanf(fichier, "%d %d", &a1, &a2);
-			b1 = N - cpt;
-			b2 = N - cpt + 1;
-			tab[b1][1] = a1;
-			tab[b2][1] = a2;
-			cpt -= 2;
-		}
-		if (cpt == 1)
-		{
-			fscanf(fichier, "%d", &a1);
-			b1 = N - cpt;
-			tab[b1][1] = a1;
-			cpt -= 1;
-		}
-	}
 	fputs("z: ", fichierLP);
-	printf("--------------test tableau------------------------\n");
-	for (i = 0; i < N; i++)
-		printf("%d\t%d\n", (tab[i][0]), (tab[i][1])); 
-
-	system("pause");
-
 	printf("z copie\n");
-	//----------------
-	for (i = 0; i < N; i++)
-	{
-		put = (tab[i][0]);
-		if (i == (N - 1))
-		{
-			fprintf(fichierLP,"1 X%d\n", put);
-		}
 
-		else
-		{
-			fprintf(fichierLP,"1 X%d + ", put);
-		}
+	//tab qui va contenir les N couts 
+	int* tab_cout_capteur = (int*)malloc(N * sizeof(int));
+	//on récupère tous les couts du fichier 
+	for (int x = 0; x < N; x++) {
+		fscanf(fichier, "%d", &tab_cout_capteur[x]);
 	}
+
+	//variable qui correspon au numéro binaire des variable 
+	int valeur_x = 1;
+	//On écrit les N-1 couts du tableau dans le fichier lp 
+	for (int x = 0; x < N - 1; x++) {
+		fprintf(fichierLP, "%d x%d + ", tab_cout_capteur[x], valeur_x);
+		valeur_x++;
+	}
+	//On ecrit le dernier cout du tableau
+	fprintf(fichierLP, "%d x%d", tab_cout_capteur[N - 1], valeur_x);
 
 	fputs("\nSubject To\n", fichierLP);
-	cpt2 = M;
-	while (cpt2 > 0)
-	{
-		fscanf(fichier, "%d", &cpt3);
-		while (cpt3 > 0)
-		{
-			fprintf(fichierLP, "poids: ");
+	//
+	for (int i = 0; i < M; i++) {
+		//Variable qui contient le nombre de capteur lié a une cible
+		int nbr_capteur_pour_cible;
+		//On récupère la valeur 
+		fscanf(fichier, "%d", &nbr_capteur_pour_cible);
 
-			if (cpt3 >= 12)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11, &a12);
-				b1 = tab[a1][1];
-				b2 = tab[a2][1];
-				b3 = tab[a3][1];
-				b4 = tab[a4][1];
-				b5 = tab[a5][1];
-				b6 = tab[a6][1];
-				b7 = tab[a7][1];
-				b8 = tab[a8][1];
-				b9 = tab[a9][1];
-				b10 = tab[a10][1];
-				b11 = tab[a11][1];
-				b12 = tab[a12][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12);
-				cpt3 -= 12;
-			}
-			if (cpt3 == 11)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10, &a11);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				c7 = tab[a7][1];
-				c8 = tab[a8][1];
-				c9 = tab[a9][1];
-				c10 = tab[a10][1];
-				c11 = tab[a11][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11);
-				cpt3 -= 11;
-			}
-
-			if (cpt3 == 10)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9, &a10);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				c7 = tab[a7][1];
-				c8 = tab[a8][1];
-				c9 = tab[a9][1];
-				c10 = tab[a10][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
-				cpt3 -= 10;
-			}
-
-			if (cpt3 == 9)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8, &a9);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				c7 = tab[a7][1];
-				c8 = tab[a8][1];
-				c9 = tab[a9][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8, c9);
-				cpt3 -= 9;
-			}
-
-			if (cpt3 == 8)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7, &a8);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				c7 = tab[a7][1];
-				c8 = tab[a8][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7, c8);
-				cpt3 -= 8;
-			}
-
-			if (cpt3 == 7)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6, &a7);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				c7 = tab[a7][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6, c7);
-				cpt3 -= 7;
-			}
-			if (cpt3 == 6)
-			{
-				fscanf(fichier, "%d %d %d %d %d %d", &a1, &a2, &a3, &a4, &a5, &a6);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				c6 = tab[a6][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5, c6);
-				cpt3 -= 6;
-			}
-			if (cpt3 == 5)
-			{
-				fscanf(fichier, "%d %d %d %d %d", &a1, &a2, &a3, &a4, &a5);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				c5 = tab[a5][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4, c5);
-				cpt3 -= 5;
-			}
-
-			if (cpt3 == 4)
-			{
-				fscanf(fichier, "%d %d %d %d", &a1, &a2, &a3, &a4);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				c4 = tab[a4][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d + 1 X%d", c1, c2, c3, c4);
-				cpt3 -= 4;
-			}
-			if (cpt3 == 3)
-			{
-				fscanf(fichier, "%d %d %d", &a1, &a2, &a3);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				c3 = tab[a3][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d + 1 X%d", c1, c2, c3);
-				cpt3 -= 3;
-			}
-			if (cpt3 == 2)
-			{
-				fscanf(fichier, "%d %d", &a1, &a2);
-				c1 = tab[a1][1];
-				c2 = tab[a2][1];
-				fprintf(fichierLP, "+ 1 X%d + 1 X%d", c1, c2);
-				cpt3 -= 2;
-			}
-			if (cpt3 == 1)
-			{
-				fscanf(fichier, "%d", &a1);
-				c1 = tab[a1][1];
-				fprintf(fichierLP, "+ 1 X%d", c1);
-				cpt3 -= 1;
-			}
+		//tableau qui va contenir la liste des capteurs lié à la cible
+		int* liste_capteur_pour_cible = (int*)malloc(nbr_capteur_pour_cible * sizeof(int));
+		//on récupère tous les numéros des capteurs 
+		for (int x = 0; x < nbr_capteur_pour_cible; x++) {
+			fscanf(fichier, "%d", &liste_capteur_pour_cible[x]);
 		}
-		fprintf(fichierLP, ">= 1\n");
-		cpt2--;
+		//on écrit tous les numéros des capteurs lié à la cible
+		for (int x = 0; x < nbr_capteur_pour_cible - 1; x++) {
+			fprintf(fichierLP, "x%d + ", liste_capteur_pour_cible[x]);
+		}
+		fprintf(fichierLP, "x%d >=1\n", liste_capteur_pour_cible[nbr_capteur_pour_cible - 1]);
+
 	}
 
-	fputs("\nBinaries\n", fichierLP);
-
-	for (i = 0; i < N; i++)
+	fputs("Binaries\n", fichierLP);
+	//On écrit les N variables binaires
+	for (int i = 1; i <= N; i++)
 	{
-		put = (tab[i][0]);
-		fprintf(fichierLP, "X%d\n", put);
+		fprintf(fichierLP, "x%d\n", i);
 	}
 	printf("subject to copié\n");
 
 	fclose(fichier);
 	fclose(fichierLP);
 }
-
-/*
-Modele* chargerModele(char* nomFichier) {
-	FILE* fichier = NULL;
-	fichier = fopen(nomFichier, "r");
-
-	if (!fichier) {
-		printf("Impossible d'ouvrir le fichier %s, abandon...\n", nomFichier);
-		return NULL;
-	}
-
-	Modele* modele = (Modele*)calloc(1, sizeof(Modele));
-	if (!modele) {
-		printf("Impossible d'allouer de modele, abandon...\n");
-		fclose(fichier);
-	}
-
-
-	fscanf(fichier, "%d %d\n", &(modele->M), &(modele->N);
-	int M = modele->M;
-	int N = modele->N;
-
-	char buffer[4096];
-	char* tok = strtok(buffer, " ");
-
-	modele->z = (float*)calloc(modele->N, sizeof(float));
-	modele->type = 1; //minimiser
-
-	if (modele->type)
-		printf("Minimiser z = ");
-
-	for (int i = 0; i < N; i++);
-	{
-		
-	}
-}
-
-void afficherModele(Modele* modele)		//affiche le modèle tel que vu en cours
-{
-	return;
-}
-
-void detruireModele(Modele* modele) //nettoie la mémoire
-{
-	return;
-}
-*/
 
